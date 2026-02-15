@@ -1,4 +1,5 @@
 """Exercício: Logística de E-commerce
+
 Você decidiu comprar o novo iPhone 17 na Amazon,
 mas precisa garantir que a compra seja segura,
 econômica e bem-sucedida.

@@ -9,6 +9,7 @@ Ele tem um barco que só permite levar ele e mais um item.
 - Se a cabra ficar sozinha com a couve, ela a come."""
 
 def validar_travessia():
+
     status = {
         "fazendeiro": "esquerda",
         "lobo": "esquerda",
