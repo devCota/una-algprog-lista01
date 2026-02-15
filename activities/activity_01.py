@@ -9,26 +9,56 @@ Ele tem um barco que só permite levar ele e mais um item.
 - Se a cabra ficar sozinha com a couve, ela a come."""
 
 def validar_travessia():
-    """
-    Resolução:
-    Primeiro o homem vai com a cabra para o lado b, depois volta sozinho
-    em seguida pega o lobo e atravessa, pega a cabra e volta para o lado A
-    deixa a cabra pega a couve e volta para o lado B, por fim volta sozinho
-    para o lado A pega a cabra e finaliza a travessia.
-    """
+    status = {
+        "fazendeiro": "esquerda",
+        "lobo": "esquerda",
+        "cabra": "esquerda",
+        "couve": "esquerda"
+    }
 
-    lado_a = ["humano", "lobo", "cabra", "couve"]
-    lado_b = []
-    
-    input_1 = input("Quem vai atravessar primeiro?\n")
-    lado_a.remove(input_1)
-    lado_a.remove("humano")
-    lado_b.extend([input_1, "humano"])
-    input_2 = input("O homem deve trazer alguém de volta?\n")
-    input_3 = input("Quem será o proximo a atravessar?\n")
-    input_4 = input("O homem deve trazer alguém de volta?\n")
-    input_5 = input("Quem será o proximo a atravessar?\n")
-    print(input_1)
+    items = ["lobo", "cabra", "couve", "nada"]
+
+    print(
+        "=== Desafio da Travessia ===\n"
+        "Um fazendeiro precisa atravessar um rio levando um lobo,\n"
+        "uma cabra e uma couve. O barco comporta apenas o fazendeiro\n"
+        "e mais um item por vez.\n\n"
+        "Regras:\n"
+        "- Se o lobo ficar sozinho com a cabra, ele a come.\n"
+        "- Se a cabra ficar sozinha com a couve, ela a come.\n\n"
+        "Leve: lobo, cabra, couve ou nada"
+    )
+
+    while True:
+        print("\nEstado atual:", status)
+
+        if all(status[item] == "direita" for item in status):
+            print("Você venceu!")
+            break
+
+        choice = input("O que levar no barco? ").lower()
+
+        if choice not in items:
+            print("Escolha inválida")
+            continue
+
+        if choice != "nada" and status[choice] != status["fazendeiro"]:
+            print("Esse item não está com o fazendeiro")
+            continue
+
+        new_side = "direita" if status["fazendeiro"] == "esquerda" else "esquerda"
+        status["fazendeiro"] = new_side
+
+        if choice != "nada":
+            status[choice] = new_side
+
+        if status["lobo"] == status["cabra"] and status["fazendeiro"] != status["lobo"]:
+            print("O lobo comeu a cabra. Você perdeu!")
+            break
+
+        if status["cabra"] == status["couve"] and status["fazendeiro"] != status["cabra"]:
+            print("A cabra comeu a couve. Você perdeu!")
+            break
 
 if __name__ == "__main__":
     validar_travessia()
